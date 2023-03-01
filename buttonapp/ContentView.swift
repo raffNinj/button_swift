@@ -13,10 +13,12 @@ struct ContentView: View {
       case circle, square, triangle , pentagon
     }
 
-    let colors: [Color] = [.red, .blue, .orange, .black]
+    let colors: [Color] = [.red, .blue, .orange, .black, .gray, .green, .brown]
 
     @State var currentColor = Color.red
+    @State var currentColor2 = Color.red
     @State var currentForm:Form = .circle
+    @State var currentForm2:Form = .circle
 
     var body: some View {
         VStack{
@@ -58,29 +60,53 @@ struct ContentView: View {
                 }
                 .offset(x: 80, y: 55)
                 .position(x:50 , y: 10)
-            ZStack {
-              switch currentForm {
-                case .circle:
-                  Circle()
-                    .fill(currentColor)
-                    .frame(width: 200, height: 200)
-
-                case .square:
-                  Rectangle()
-                    .fill(currentColor)
-                    .frame(width: 200, height: 200)
-                case .triangle:
-                  Triangle()
-                    .fill(currentColor)
-                    .frame(width: 200, height: 200)
-                case .pentagon:
-                  Pentagon()
-                      .fill(currentColor)
-                      .frame(width: 200,height: 200)
-              }
-           }
-            .offset(x:-117,y:50)
-            .position(x:20,y: 350)
+                HStack {
+                    HStack{
+                        switch currentForm {
+                        case .circle:
+                            Circle()
+                                .fill(currentColor)
+                                .frame(width: 150, height: 150)
+                        case .square:
+                            Rectangle()
+                                .fill(currentColor)
+                                .frame(width: 150, height: 150)
+                        case .triangle:
+                            Triangle()
+                                .fill(currentColor)
+                                .frame(width: 150, height: 150)
+                        case .pentagon:
+                            Pentagon()
+                                .fill(currentColor)
+                                .frame(width: 150,height: 150)
+                        }
+                    }
+                    .offset(x:-200,y:50)
+                    .position(x:-10,y: 350)
+                    HStack{
+                        switch currentForm2 {
+                        case .circle:
+                            Circle()
+                                .fill(currentColor2)
+                                .frame(width: 150, height: 150)
+                        case .square:
+                            Rectangle()
+                                .fill(currentColor2)
+                                .frame(width: 150, height: 150)
+                        case .triangle:
+                            Triangle()
+                                .fill(currentColor2)
+                                .frame(width: 150, height: 150)
+                        case .pentagon:
+                            Pentagon()
+                                .fill(currentColor2)
+                                .frame(width: 150,height: 150)
+                        }
+                    }
+                    .offset(x:-50,y:50)
+                    .position(x:2,y: 350)
+                    
+                }
         }
       }
     }
@@ -89,22 +115,33 @@ struct ContentView: View {
       if let index = colors.firstIndex(of: currentColor) {
         let nextIndex = (index + 1) % colors.count
         self.currentColor = colors[nextIndex]
+          currentColor2 = currentColor
+          
       }
+        
     }
 
     private func changeForm() {
       if let index = Form.allCases.firstIndex(of: currentForm) {
         let nextIndex = (index + 1) % Form.allCases.count
         self.currentForm = Form.allCases[nextIndex]
+          currentForm2 = currentForm
       }
     }
     private func random_color_form(){
-        let randomColorIndex = Int.random(in: 0..<colors.count)
+            let randomColorIndex = Int.random(in: 0..<colors.count)
             let randomColor = colors[randomColorIndex]
             let randomFormIndex = Int.random(in: 0..<Form.allCases.count)
             let randomForm = Form.allCases[randomFormIndex]
             self.currentColor = randomColor
             self.currentForm = randomForm
+            
+            let randomColorIndex2 = Int.random(in: 0..<colors.count)
+            let randomColor2 = colors[randomColorIndex2]
+            let randomFormIndex2 = Int.random(in: 0..<Form.allCases.count)
+            let randomForm2 = Form.allCases[randomFormIndex2]
+            self.currentColor2 = randomColor2
+            self.currentForm2 = randomForm2
     }
 }
 
