@@ -19,6 +19,9 @@ struct ContentView: View {
     @State var currentColor2 = Color.red
     @State var currentForm:Form = .circle
     @State var currentForm2:Form = .circle
+    @State var winall = false
+//    @State var winforms = false
+//    @State var wincolors = false
 
     var body: some View {
         VStack{
@@ -50,6 +53,9 @@ struct ContentView: View {
                 .position(x: 30, y: 10)
                 Button {
                     random_color_form()
+                    if currentColor == currentColor2 && currentForm == currentForm2{
+                        winall = true
+                    }
                 } label: {
                     Image("shaker")
                         .resizable()
@@ -106,7 +112,13 @@ struct ContentView: View {
                     .offset(x:-50,y:50)
                     .position(x:2,y: 350)
                     
-                }
+                }.alert(isPresented: $winall){
+                    Alert(
+                        title: Text("You are Win!!"),
+//                        message: Text("forms and colors same"),
+                                        dismissButton: .default(Text("OK"))
+                    )
+         }
         }
       }
     }
